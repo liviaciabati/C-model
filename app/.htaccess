@@ -1,0 +1,22 @@
+#<IfModule mod_rewrite.c>
+#    RewriteEngine on
+#    RewriteBase /cmodel/app/webroot/
+#    RewriteRule    ^$    /cmodel/app/webroot/    [L]
+#    RewriteRule    (.*) /cmodel/app/webroot/$1    [L]
+#</IfModule>
+
+
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+
+    # FORCE SSL REDIRECTION
+    RewriteCond %{ENV:HTTPS} !on [NC]
+    RewriteCond %{HTTP_HOST} !^local [NC]
+    RewriteCond %{HTTP_HOST} !^staging [NC]
+    RewriteRule ^(.*)$ https://cmodel.fmrp.usp.br/$1 [R,L]
+
+    RewriteRule ^$ /cmodel/app/webroot/ [L]
+    RewriteRule (.*) /cmodel/app/webroot/$1 [L]
+</IfModule>
